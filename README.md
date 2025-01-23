@@ -7,21 +7,6 @@ This repository provides a ready-to-use SDK for interacting with Hyperswap V2, i
 - Add liquidity to ETH-USDC pools.
 - Dynamic ABI integration for flexibility.
 
-## Repository Structure
-      how-tos-v2/
-
-     ├── README.md         
-     ├── package.json      
-      
-     ├── src/
-
-        │   ├── hyperswap_swap_functions.js
-     
-        │   ├── hyperswap_liquidity_functions.js
-
-     │   ├── abi/
-
-        │   │   └── router_abi.json
 
 ## Getting Started
 
