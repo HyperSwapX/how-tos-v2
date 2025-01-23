@@ -6,10 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["hyperswap", "dex", "sdk", "ethers"],
+  "keywords": [
+    "hyperswap",
+    "dex",
+    "sdk",
+    "ethers"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "ethers": "^5.7.0"
   }
 }
