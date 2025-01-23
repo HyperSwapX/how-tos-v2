@@ -1,0 +1,15 @@
+{
+  "name": "hyperswap-sdk",
+  "version": "1.0.0",
+  "description": "Hyperswap V2 SDK for interacting with the decentralized exchange.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["hyperswap", "dex", "sdk", "ethers"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ethers": "^5.7.0"
+  }
+}
