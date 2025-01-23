@@ -15,14 +15,14 @@ const getRouterContract = (provider) => {
 async function swapETHForUSDC(provider, signer, amountOutMin, to) {
   const router = getRouterContract(provider).connect(signer);
   const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes from now
-  const path = ["0x0000000000000000000000000000000000000000", "0x24ac48bf01fd6CB1C3836D08b3EdC70a9C4380cA"];
+  const path = ["0xADcb2f358Eae6492F61A5F87eb8893d09391d160", "0x24ac48bf01fd6CB1C3836D08b3EdC70a9C4380cA"];
 
   const tx = await router.swapExactETHForTokensSupportingFeeOnTransferTokens(
     amountOutMin,
     path,
     to,
     deadline,
-    { value: ethers.utils.parseEther("1") } // Replace "1" with the desired ETH amount
+    { value: ethers.utils.parseEther(ethAmount.toString()) }
   );
 
   return tx.wait();
@@ -32,7 +32,7 @@ async function swapETHForUSDC(provider, signer, amountOutMin, to) {
 async function swapUSDCForETH(provider, signer, amountIn, amountOutMin, to) {
   const router = getRouterContract(provider).connect(signer);
   const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes from now
-  const path = ["0x24ac48bf01fd6CB1C3836D08b3EdC70a9C4380cA", "0x0000000000000000000000000000000000000000"];
+  const path = ["0x24ac48bf01fd6CB1C3836D08b3EdC70a9C4380cA", "0xADcb2f358Eae6492F61A5F87eb8893d09391d160"];
 
   const tx = await router.swapExactTokensForETHSupportingFeeOnTransferTokens(
     amountIn,
