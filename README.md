@@ -32,7 +32,7 @@ This repository provides a ready-to-use SDK for interacting with Hyperswap V2, i
 
 2. Install dependencies:
    ```bash
-   npm install ethers
+   npm install
    
 3. Edit and run the scripts:
    
