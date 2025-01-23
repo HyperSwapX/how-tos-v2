@@ -12,7 +12,7 @@ const WETH_ADDRESS = "0xADcb2f358Eae6492F61A5F87eb8893d09391d160";
 
 // Initialize Router Contract
 const getRouterContract = (provider) => {
-  return new ethers.Contract(ROUTER_ADDRESS, routerABI, provider);
+  return new ethers.Contract(ROUTER_ADDRESS, routerABI.abi, provider);
 };
 
 // Helper: Calculate Optimal Token Amounts
@@ -36,21 +36,54 @@ async function addLiquidityETHWithUSDC(
 ) {
   const router = getRouterContract(provider).connect(signer);
   const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes from now
+  const ethAmountParsed = ethers.utils.parseEther(ethAmount.toString());
 
-  // Calculate the optimal amount of USDC based on the ETH amount
-  const usdcAmountDesired = await calculateOptimalUSDCAmount(provider, ethAmount);
+  // Calculate the optimal amount of USDC
+  const usdcAmountDesired = await calculateOptimalUSDCAmount(provider, ethAmountParsed);
 
-  const tx = await router.addLiquidityETH(
-    USDC_ADDRESS,
-    usdcAmountDesired,
-    usdcMin,
-    ethMin,
-    to,
-    deadline,
-    { value: ethAmount } // Pass the ETH amount directly
-  );
+  // USDC Contract
+  const USDC_ABI = [
+    "function approve(address spender, uint256 amount) public returns (bool)",
+    "function allowance(address owner, address spender) public view returns (uint256)",
+    "function balanceOf(address account) public view returns (uint256)",
+  ];
+  const usdcContract = new ethers.Contract(USDC_ADDRESS, USDC_ABI, signer);
 
-  return tx.wait();
+  // Check USDC Balance
+  const usdcBalance = await usdcContract.balanceOf(signer.address);
+  console.log("USDC Balance:", usdcBalance.toString());
+  if (usdcBalance.lt(usdcAmountDesired)) {
+    throw new Error("Insufficient USDC balance for liquidity addition.");
+  }
+
+  // Check Allowance
+  const allowance = await usdcContract.allowance(signer.address, router.address);
+  console.log("USDC Allowance:", allowance.toString());
+  if (allowance.lt(usdcAmountDesired)) {
+    console.log("Approving USDC for Router...");
+    const approveTx = await usdcContract.approve(router.address, ethers.constants.MaxUint256);
+    await approveTx.wait();
+    console.log("USDC approved successfully.");
+  } else {
+    console.log("Sufficient USDC allowance already exists.");
+  }
+
+  // Add Liquidity
+  try {
+    const tx = await router.addLiquidityETH(
+      USDC_ADDRESS,
+      usdcAmountDesired,
+      usdcMin,
+      ethMin,
+      to,
+      deadline,
+      { value: ethAmountParsed, gasLimit: 300000 } // Fallback gas limit
+    );
+    return await tx.wait();
+  } catch (error) {
+    console.error("Error adding liquidity:", error);
+    throw error;
+  }
 }
 
 module.exports = {
