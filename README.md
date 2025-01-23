@@ -1,15 +1,31 @@
-# Hyperswap SDK Templates
+# Hyperswap SDK Template
 
-This repository contains example scripts for interacting with the Hyperswap V2 SDK. Use these templates as a starting point for your development.
+This repository provides a ready-to-use SDK for interacting with Hyperswap V2, including swap and liquidity functionalities.
 
-## Templates
+## Features
+- Swap tokens (e.g., USDC ↔ ETH).
+- Add liquidity to ETH-USDC pools.
+- Dynamic ABI integration for flexibility.
 
-1. **Swap Functions**: [hyperswap_swap_functions.js](templates/hyperswap_swap_functions.js)
-2. **Add Liquidity Functions**: [hyperswap_liquidity_functions.js](templates/hyperswap_liquidity_functions.js)
+## Repository Structure
+      how-tos-v2/
 
-## How to Use
+     ├── README.md         
+     ├── package.json      
+      
+     ├── src/
 
-1. Clone this repository:
+        │   ├── hyperswap_swap_functions.js
+     
+        │   ├── hyperswap_liquidity_functions.js
+
+     │   ├── abi/
+
+        │   │   └── router_abi.json
+
+## Getting Started
+
+1. Clone the repository:
    ```bash
    git clone https://github.com/<your-username>/hyperswap-sdk.git
    cd hyperswap-sdk
@@ -17,7 +33,13 @@ This repository contains example scripts for interacting with the Hyperswap V2 S
 2. Install dependencies:
    ```bash
    npm install ethers
+   
+3. Edit and run the scripts:
+   
+	For swaps:
+      ```bash
+   node src/hyperswap_swap_functions.js
 
-3. Customize the scripts as needed and run them with Node.js:
-   ```bash
-   node templates/hyperswap_swap_functions.js
+For liquidity: 
+ ```bash
+  node src/hyperswap_liquidity_functions.js
