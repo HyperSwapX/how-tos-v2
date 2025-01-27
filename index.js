@@ -17,14 +17,14 @@ try {
     try {
       // Call the Swap Function
       console.log("Swapping ETH for USDC...");
-      const amountOutMin = ethers.utils.parseUnits("100", 6); // Minimum USDC expected
+      const amountOutMin = ethers.utils.parseUnits("100", 8); // Minimum USDC expected
       const to = walletAddress; // Replace with your wallet address
       const ethAmount = "0.1"; // Amount of ETH to swap
      await swapETHForUSDC(provider, signer, amountOutMin, to, ethAmount);
      console.log("Swap ETH → USDC completed!");
 
       console.log("Swapping USDC for ETH...");
-      const usdcAmount = ethers.utils.parseUnits("100", 6); // 100 USDC
+      const usdcAmount = ethers.utils.parseUnits("100", 8); // 100 USDC
       const slippageTolerance = 2; // 2% slippage
       await swapUSDCForETH(provider, signer, usdcAmount, slippageTolerance, to);
       console.log("Swap USDC → ETH completed!");
