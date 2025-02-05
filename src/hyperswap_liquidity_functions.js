@@ -4,7 +4,7 @@ const { ethers } = require("ethers");
 const routerABI = require("./abi/router_abi.json");
 
 // Router Contract Address
-const ROUTER_ADDRESS = "0x85aA63EB2ab9BaAA74eAd7e7f82A571d74901853";
+const ROUTER_ADDRESS = "0xD19222370B1944a5392f98028C3E70AFD3a673dF";
 
 // Token Addresses
 const USDC_ADDRESS = "0x24ac48bf01fd6CB1C3836D08b3EdC70a9C4380cA";
